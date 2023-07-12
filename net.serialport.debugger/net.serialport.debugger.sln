@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortProxyService", "SerialPortProxyService\SerialPortProxyService.csproj", "{E68DB821-77FF-400D-A77D-2F0B2312EB66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPortProxyService", "SerialPortProxyService\SerialPortProxyService.csproj", "{E68DB821-77FF-400D-A77D-2F0B2312EB66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortProxyService.Win", "SerialPortProxyService.Win\SerialPortProxyService.Win.csproj", "{020B4EE3-9345-4F46-A249-8BFCDFE573B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E68DB821-77FF-400D-A77D-2F0B2312EB66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E68DB821-77FF-400D-A77D-2F0B2312EB66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E68DB821-77FF-400D-A77D-2F0B2312EB66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{020B4EE3-9345-4F46-A249-8BFCDFE573B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020B4EE3-9345-4F46-A249-8BFCDFE573B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020B4EE3-9345-4F46-A249-8BFCDFE573B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020B4EE3-9345-4F46-A249-8BFCDFE573B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
