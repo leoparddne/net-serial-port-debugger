@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SerialPortProxyService.Win.Helper
+namespace SerialPortProxyService.Common.Helper
 {
     public class SocketHelper : IDisposable
     {
@@ -17,7 +17,7 @@ namespace SerialPortProxyService.Win.Helper
             IPAddress iPAddress = IPAddress.Parse(ip);
             ipEndPoint = new IPEndPoint(iPAddress, port);
 
-            this.Encode = encode;
+            Encode = encode;
             SocketInstance = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 

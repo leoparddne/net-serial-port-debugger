@@ -5,7 +5,11 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPortProxyService", "SerialPortProxyService\SerialPortProxyService.csproj", "{E68DB821-77FF-400D-A77D-2F0B2312EB66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortProxyService.Win", "SerialPortProxyService.Win\SerialPortProxyService.Win.csproj", "{020B4EE3-9345-4F46-A249-8BFCDFE573B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPortProxyService.Win", "SerialPortProxyService.Win\SerialPortProxyService.Win.csproj", "{020B4EE3-9345-4F46-A249-8BFCDFE573B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortProxyService.Test", "SerialPortProxyService.Test\SerialPortProxyService.Test.csproj", "{F53AC408-8573-40B8-9C93-ECEA84F76827}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortProxyService.Common", "SerialPortProxyService.Common\SerialPortProxyService.Common.csproj", "{A4732D29-A85F-4ECE-A479-C98716F2C74E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{020B4EE3-9345-4F46-A249-8BFCDFE573B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{020B4EE3-9345-4F46-A249-8BFCDFE573B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{020B4EE3-9345-4F46-A249-8BFCDFE573B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53AC408-8573-40B8-9C93-ECEA84F76827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53AC408-8573-40B8-9C93-ECEA84F76827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53AC408-8573-40B8-9C93-ECEA84F76827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53AC408-8573-40B8-9C93-ECEA84F76827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4732D29-A85F-4ECE-A479-C98716F2C74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4732D29-A85F-4ECE-A479-C98716F2C74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4732D29-A85F-4ECE-A479-C98716F2C74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4732D29-A85F-4ECE-A479-C98716F2C74E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

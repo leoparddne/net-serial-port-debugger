@@ -2,7 +2,7 @@
 using System.IO.Ports;
 using System.Text;
 
-namespace SerialPortProxyService.Win.Helper
+namespace SerialPortProxyService.Common.Helper
 {
     public class SerialPortHelper : IDisposable
     {

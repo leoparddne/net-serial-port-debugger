@@ -1,5 +1,5 @@
 ﻿using PropertyChanged;
-using SerialPortProxyService.Win.Helper;
+using SerialPortProxyService.Common.Helper;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
@@ -34,7 +34,7 @@ namespace SerialPortProxyService.Win.VM
 
             var byteStr = encode.GetBytes("test123!@#中文.");
 
-            SerialPortHelper.Send(byteStr,0, byteStr.Length);
+            SerialPortHelper.Send(byteStr, 0, byteStr.Length);
         }
 
         private void SerialPortHelper_DataReceivedEvent(byte[] byteData)
