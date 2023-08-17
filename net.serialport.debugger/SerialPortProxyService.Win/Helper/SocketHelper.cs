@@ -1,14 +1,57 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 namespace SerialPortProxyService.Win.Helper
 {
-    public class SocketHelper
+    public class SocketHelper : IDisposable
     {
-        private Socket Socket { get; set; }
+        private Encoding Encode { get; set; }
+        private Socket SocketInstance { get; set; }
 
-        public SocketHelper()
+        IPEndPoint ipEndPoint;
+
+        public SocketHelper(Encoding encode, string ip, int port)
         {
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPAddress iPAddress = IPAddress.Parse(ip);
+            ipEndPoint = new IPEndPoint(iPAddress, port);
+
+            this.Encode = encode;
+            SocketInstance = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        }
+
+
+        public void Send(string msg)
+        {
+            var byteStr = Encode.GetBytes(msg);
+
+            SocketInstance.Send(byteStr);
+        }
+
+        public void Bind()
+        {
+            SocketInstance.Bind(ipEndPoint);
+
+        }
+
+        public void Connect(string ip, int port)
+        {
+            SocketInstance.Connect(ipEndPoint);
+        }
+
+        public void Listen()
+        {
+            SocketInstance.Listen();
+        }
+
+        public void Dispose()
+        {
+            if (SocketInstance.Connected)
+            {
+                SocketInstance.Close();
+            }
+            SocketInstance.Dispose();
         }
     }
 }
