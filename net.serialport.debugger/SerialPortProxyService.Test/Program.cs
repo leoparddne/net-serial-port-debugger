@@ -36,12 +36,25 @@ namespace SerialPortProxyService.Test
             socketHelper.Listen();
 
 
-            var acceptSocket = socketHelper.Accept();
 
-            SocketHelper acceptSocketHelper = new SocketHelper(encode, acceptSocket);
+            SocketHelper acceptSocketHelper = null;
 
 
             while (true)
+            {
+                var acceptSocket = socketHelper.Accept();
+                acceptSocketHelper = new SocketHelper(encode, acceptSocket);
+
+                Task.Run(() =>
+                {
+                    Receive(encode, acceptSocketHelper);
+                });
+            }
+        }
+
+        private static void Receive(Encoding encode, SocketHelper acceptSocketHelper)
+        {
+            while (acceptSocketHelper.ISConnect)
             {
                 var buffer = new byte[4096];
                 var size = acceptSocketHelper.Receive(buffer);

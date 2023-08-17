@@ -9,6 +9,14 @@ namespace SerialPortProxyService.Common.Helper
         private Encoding Encode { get; set; }
         private Socket SocketInstance { get; set; }
 
+        public bool ISConnect
+        {
+            get
+            {
+                return SocketInstance.Connected;
+            }
+        }
+
         public SocketHelper(Encoding encode)
         {
             Encode = encode;
