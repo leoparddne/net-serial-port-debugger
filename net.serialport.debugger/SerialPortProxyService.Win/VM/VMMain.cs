@@ -34,8 +34,9 @@ namespace SerialPortProxyService.Win.VM
 
         private void SerialPortHelper_DataReceivedEvent(byte[] byteData)
         {
-            var str = Encoding.Default.GetString(byteData, 0, byteData.Length);
-            //File.WriteAllText("./log.txt", str.Trim());
+            var str = System.Text.Encoding.GetEncoding("GB2312").GetString(byteData, 0, byteData.Length);
+            //var str = Encoding.UTF8.GetString(byteData, 0, byteData.Length);
+            File.WriteAllText("./log.txt", str.Trim());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Text;
 
 namespace SerialPortProxyService.Win.Helper
 {
@@ -33,6 +34,9 @@ namespace SerialPortProxyService.Win.Helper
         public SerialPortHelper(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
         {
             SerialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
+            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            //SerialPort.Encoding = Encoding.UTF8;
+            SerialPort.Encoding = System.Text.Encoding.GetEncoding("GB2312");
             SerialPort.DataReceived += SerialPort_DataReceived;
             SerialPort.ErrorReceived += SerialPort_ErrorReceived;
             SerialPort.PinChanged += SerialPort_PinChanged;
