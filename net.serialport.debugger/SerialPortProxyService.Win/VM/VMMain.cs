@@ -26,8 +26,9 @@ namespace SerialPortProxyService.Win.VM
             {
                 SerialPortList = new(sysSerialPortList);
             }
-
-            SerialPortHelper = new SerialPortHelper("COM2", 9600, Parity.None, 8, StopBits.One);
+            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var encode=System.Text.Encoding.GetEncoding("GB2312");
+            SerialPortHelper = new SerialPortHelper(encode,"COM2", 9600, Parity.None, 8, StopBits.One);
             SerialPortHelper.DataReceivedEvent += SerialPortHelper_DataReceivedEvent;
             SerialPortHelper.Open();
         }

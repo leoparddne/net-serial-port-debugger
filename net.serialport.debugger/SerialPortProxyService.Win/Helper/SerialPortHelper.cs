@@ -31,12 +31,11 @@ namespace SerialPortProxyService.Win.Helper
         /// <param name="parity"></param>
         /// <param name="dataBits"></param>
         /// <param name="stopBits"></param>
-        public SerialPortHelper(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
+        public SerialPortHelper(Encoding encode, string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
         {
             SerialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
-            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             //SerialPort.Encoding = Encoding.UTF8;
-            SerialPort.Encoding = System.Text.Encoding.GetEncoding("GB2312");
+            SerialPort.Encoding = encode;
             SerialPort.DataReceived += SerialPort_DataReceived;
             SerialPort.ErrorReceived += SerialPort_ErrorReceived;
             SerialPort.PinChanged += SerialPort_PinChanged;
