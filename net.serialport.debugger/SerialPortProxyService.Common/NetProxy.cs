@@ -9,6 +9,8 @@ namespace SerialPortProxyService.Common
     {
         private NetProxyConfig netProxyConfig;
         private SocketHelper acceptSocketHelper;
+        private Task task;
+        private CancellationTokenSource cancellationToken = new();
 
         public RunningModeEnum RunningMode { get; set; }
 
@@ -41,14 +43,22 @@ namespace SerialPortProxyService.Common
             switch (RunningMode)
             {
                 case RunningModeEnum.SerialPort:
-                    StartServer(netProxyConfig.IP, netProxyConfig.Port);
+                    task = Task.Run(() =>
+                   {
+                       StartServer(netProxyConfig.IP, netProxyConfig.Port);
+                   }, cancellationToken.Token);
                     break;
                 case RunningModeEnum.Net:
-                    StartClient(netProxyConfig.IP, netProxyConfig.Port);
+                    task = Task.Run(() =>
+                   {
+                       StartClient(netProxyConfig.IP, netProxyConfig.Port);
+                   }, cancellationToken.Token);
                     break;
                 default:
+                    throw new Exception("error running mode");
                     break;
             }
+
         }
 
         public void StartServer(string ip, int port)
@@ -115,6 +125,7 @@ namespace SerialPortProxyService.Common
 
         public void Stop()
         {
+            cancellationToken.Cancel();
             acceptSocketHelper.Close();
             acceptSocketHelper.Dispose();
         }
