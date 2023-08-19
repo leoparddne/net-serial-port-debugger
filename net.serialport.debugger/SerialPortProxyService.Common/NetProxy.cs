@@ -1,4 +1,5 @@
-﻿using SerialPortProxyService.Common.Helper;
+﻿using SerialPortProxyService.Common.Constant;
+using SerialPortProxyService.Common.Helper;
 using SerialPortProxyService.Common.Model;
 
 namespace SerialPortProxyService.Common
@@ -7,6 +8,8 @@ namespace SerialPortProxyService.Common
     {
         private NetProxyConfig netProxyConfig;
         private SocketHelper acceptSocketHelper;
+
+        public RunningModeEnum RunningMode { get; set; }
 
         public void Build(IProxyConfig config)
         {
@@ -31,6 +34,11 @@ namespace SerialPortProxyService.Common
         {
             acceptSocketHelper.Close();
             acceptSocketHelper.Dispose();
+        }
+
+        public void ChangeMode(RunningModeEnum mode)
+        {
+            this.RunningMode = mode;
         }
     }
 }
