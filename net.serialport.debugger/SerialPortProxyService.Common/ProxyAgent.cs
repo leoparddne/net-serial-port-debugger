@@ -61,6 +61,13 @@ namespace SerialPortProxyService.Common
 
         public void SerialPortReceive(byte[] data)
         {
+#if DEBUG
+            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var encode = System.Text.Encoding.GetEncoding("GB2312");
+            var str = encode.GetString(data);
+
+            Console.WriteLine($"serialport receive:{str}");
+#endif
             netProxy.Send(data);
         }
 
