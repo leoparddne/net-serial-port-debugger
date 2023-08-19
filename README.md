@@ -4,20 +4,37 @@
 串口调试工具，使用网络转发串口数据以实现调试远程串口的需求
 
 #### 软件架构
-软件架构说明
-
+程序主体使用.net6实现  
+基础结构划分情况如下  
+SerialPortProxyService.Common - 核心、公共逻辑
+SerialPortProxyService.Console - 命令行模式逻辑
+SerialPortProxyService.Win - GUI模式逻辑，基于WPF+handycontrol
+SerialPortProxyService - 服务模式逻辑
+SerialPortProxyService.Test - 测试代码,用作部分单元测试不便于测试的场景
+SerialPortProxyService.MSTest - 单元测试,基于MSTest框架
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+.net6环境
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+程序共分为两部分  
+1. 监听串口并发送给指定的网络ip、端口
+2. 监听网络将接收到的数据包转发给本地串口
+
+
+其他  
+互联网环境中需要进行内网穿透的配置，或是使用局域网中的路由器所提供的NAT功能临时映射到本地ip
+
+
+### 运行模式
+提供如下几种运行模式
+1. GUI模式 - 作为工具性质场景使用
+2. 命令行模式 - 此模式可以作为中间件在其他需要使用的位置进行调用 - 此模式支持跨平台场景
+3. 系统服务模式 - 此模式可以部署为系统服务,支持windows及linux下systemd - 次模式支持跨平台场景
+
+
 
 #### 参与贡献
 

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
 using System.Text;
+using System.Windows.Input;
 
 namespace SerialPortProxyService.Win.VM
 {
@@ -18,6 +19,10 @@ namespace SerialPortProxyService.Win.VM
         /// 选中的串口
         /// </summary>
         public string SelectSerialPort { get; set; }
+
+        public ICommand ListenSerialCommand { get; set; }
+        public ICommand ListenNetCommand { get; set; }
+
 
         public VMMain()
         {
