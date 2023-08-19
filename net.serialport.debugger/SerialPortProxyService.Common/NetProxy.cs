@@ -101,8 +101,6 @@ namespace SerialPortProxyService.Common
 
                 buffer.ToList().CopyTo(0, finalBuffer, 0, size);
 
-                var str = encode.GetString(finalBuffer);
-                Console.WriteLine($"receive:{str}");
                 Receive(finalBuffer);
             }
         }
@@ -110,17 +108,11 @@ namespace SerialPortProxyService.Common
 
         private void StartClient(string ip, int port)
         {
-            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
-            var encode = System.Text.Encoding.GetEncoding("GB2312");
-
-            SocketHelper socketHelper = new SocketHelper(encode);
+            SocketHelper socketHelper = new SocketHelper(netProxyConfig.Encode);
             socketHelper.Connect(ip, port);
             while (true)
             {
                 var sendStr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                var size = socketHelper.Send(sendStr);
-                Console.WriteLine($"send:{sendStr}");
                 Thread.Sleep(1000);
             }
         }

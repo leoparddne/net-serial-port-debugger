@@ -1,5 +1,6 @@
 ﻿using SerialPortProxyService.Common.Constant;
 using SerialPortProxyService.Common.Model;
+using System.Text;
 
 namespace SerialPortProxyService.Common
 {
@@ -65,6 +66,13 @@ namespace SerialPortProxyService.Common
 
         public void SocketReceive(byte[] data)
         {
+#if DEBUG
+            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var encode = System.Text.Encoding.GetEncoding("GB2312");
+            var str = encode.GetString(data);
+
+            Console.WriteLine($"socket receive:{str}");
+#endif
             serialPortProxy.Send(data);
         }
 
