@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SerialPortProxyService.Common.Model
 {
-    public class NetProxyConfig: IProxyConfig
+    public interface IProxyConfig
     {
     }
 }

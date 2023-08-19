@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SerialPortProxyService.Common
+namespace SerialPortProxyService.Common.Constant
 {
     public enum RunningModeEnum
     {
