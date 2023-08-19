@@ -1,16 +1,18 @@
-﻿using SerialPortProxyService.Common.Model;
+﻿using SerialPortProxyService.Common.Helper;
+using SerialPortProxyService.Common.Model;
 
 namespace SerialPortProxyService.Common
 {
     public class NetProxy : IProxyBase
     {
         private NetProxyConfig netProxyConfig;
+        private SocketHelper acceptSocketHelper;
 
         public void Build(IProxyConfig config)
         {
             if (config is not NetProxyConfig netConfig)
             {
-                throw new Exception("serialport error config");
+                throw new Exception("net error config");
             }
 
             netProxyConfig = netConfig;
@@ -18,12 +20,17 @@ namespace SerialPortProxyService.Common
 
         public void Start()
         {
-            throw new NotImplementedException();
+            if (netProxyConfig == null)
+            {
+                throw new Exception("net config is null");
+            }
+            acceptSocketHelper = new SocketHelper(netProxyConfig.Encode);
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            acceptSocketHelper.Close();
+            acceptSocketHelper.Dispose();
         }
     }
 }

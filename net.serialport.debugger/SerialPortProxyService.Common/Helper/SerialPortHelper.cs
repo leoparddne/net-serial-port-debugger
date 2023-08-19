@@ -81,6 +81,10 @@ namespace SerialPortProxyService.Common.Helper
 
         public void Close()
         {
+            if (!SerialPort.IsOpen)
+            {
+                return;
+            }
             SerialPort.Close();
         }
 

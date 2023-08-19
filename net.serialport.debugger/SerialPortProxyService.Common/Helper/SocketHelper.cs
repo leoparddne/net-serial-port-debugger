@@ -67,12 +67,17 @@ namespace SerialPortProxyService.Common.Helper
             return SocketInstance.Receive(buffer);
         }
 
+        public void Close()
+        {
+            if (!SocketInstance.Connected)
+            {
+                return;
+            }
+            SocketInstance.Close();
+        }
+
         public void Dispose()
         {
-            if (SocketInstance.Connected)
-            {
-                SocketInstance.Close();
-            }
             SocketInstance.Dispose();
         }
     }

@@ -30,11 +30,13 @@ namespace SerialPortProxyService.Common
                serialPortProxyConfig.Parity,
                serialPortProxyConfig.DataBits,
                serialPortProxyConfig.StopBits);
+            serialPortHelper.Open();
         }
 
         public void Stop()
         {
             serialPortHelper.Close();
+            serialPortHelper.Dispose();
         }
     }
 }
