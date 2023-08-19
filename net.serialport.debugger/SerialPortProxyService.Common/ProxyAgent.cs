@@ -59,5 +59,11 @@ namespace SerialPortProxyService.Common
             netProxy.Start();
             serialPortProxy.Start();
         }
+
+        public void Stop()
+        {
+            netProxy.Stop();
+            serialPortProxy.Stop();
+        }
     }
 }

@@ -20,5 +20,10 @@ namespace SerialPortProxyService.Common
         {
             throw new NotImplementedException();
         }
+
+        public void Stop()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
