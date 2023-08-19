@@ -1,9 +1,12 @@
-﻿using SerialPortProxyService.Common.Model;
+﻿using SerialPortProxyService.Common.Constant;
+using SerialPortProxyService.Common.Model;
 
 namespace SerialPortProxyService.Common
 {
     public interface IProxyBase
     {
+        public RunningModeEnum RunningMode { get; set; }
+
         Action<byte[]> Receive { get; set; }
 
         /// <summary>

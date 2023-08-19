@@ -9,6 +9,7 @@ namespace SerialPortProxyService.Common
         private SerialPortProxyConfig serialPortProxyConfig;
         private SerialPortHelper serialPortHelper;
         public Action<byte[]> Receive { get; set; }
+        public RunningModeEnum RunningMode { get; set; }
 
 
         public SerialPortProxy(Action<byte[]> receive)

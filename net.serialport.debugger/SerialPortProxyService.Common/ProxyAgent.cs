@@ -1,4 +1,5 @@
-﻿using SerialPortProxyService.Common.Model;
+﻿using SerialPortProxyService.Common.Constant;
+using SerialPortProxyService.Common.Model;
 
 namespace SerialPortProxyService.Common
 {
@@ -65,6 +66,14 @@ namespace SerialPortProxyService.Common
         public void SocketReceive(byte[] data)
         {
             serialPortProxy.Send(data);
+        }
+
+
+
+        public void SwitchMode(RunningModeEnum mode)
+        {
+            netProxy.RunningMode = mode;
+            serialPortProxy.RunningMode = mode;
         }
     }
 }

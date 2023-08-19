@@ -14,7 +14,7 @@ namespace SerialPortProxyService.Common.Model
         /// 
         /// </summary>
         [MemberNotNull(nameof(Port))]
-        public uint Port { get; set; }
+        public int Port { get; set; }
 
         public Encoding Encode { get; set; }
     }
