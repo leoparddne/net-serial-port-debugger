@@ -22,6 +22,8 @@ namespace SerialPortProxyService.Common.Helper
             }
         }
 
+        public Action<byte[]> ReceiveCallback { get;   set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -64,6 +66,8 @@ namespace SerialPortProxyService.Common.Helper
             //string data = Encoding.Default.GetString(readBuffer);
 
             DataReceivedEvent.Invoke(readBuffer);
+
+            ReceiveCallback.Invoke(readBuffer);
         }
 
         public void Send(byte[] buffer)

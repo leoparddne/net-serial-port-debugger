@@ -40,6 +40,10 @@ namespace SerialPortProxyService.Common
                serialPortProxyConfig.Parity,
                serialPortProxyConfig.DataBits,
                serialPortProxyConfig.StopBits);
+
+            serialPortHelper.ReceiveCallback = Receive;
+
+
             serialPortHelper.Open();
 
         }

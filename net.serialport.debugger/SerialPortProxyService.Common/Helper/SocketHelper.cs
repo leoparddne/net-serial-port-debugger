@@ -17,6 +17,8 @@ namespace SerialPortProxyService.Common.Helper
             }
         }
 
+        public Action<byte[]> ReceiveCallback { get; set; }
+
         public SocketHelper(Encoding encode)
         {
             Encode = encode;
@@ -67,7 +69,9 @@ namespace SerialPortProxyService.Common.Helper
 
         public int Receive(byte[] buffer)
         {
-            return SocketInstance.Receive(buffer);
+            var result = SocketInstance.Receive(buffer);
+            ReceiveCallback?.Invoke(buffer);
+            return result;
         }
 
         public void Close()

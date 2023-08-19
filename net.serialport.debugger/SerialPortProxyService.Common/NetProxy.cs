@@ -35,7 +35,7 @@ namespace SerialPortProxyService.Common
                 throw new Exception("net config is null");
             }
             acceptSocketHelper = new SocketHelper(netProxyConfig.Encode);
-
+            acceptSocketHelper.ReceiveCallback = Receive;
         }
 
         public void Stop()
