@@ -47,25 +47,29 @@ namespace SerialPortProxyService.Test
 
                 Task.Run(() =>
                 {
-                    Receive(encode, acceptSocketHelper);
+                    while (acceptSocketHelper.ISConnect)
+                    {
+                        Receive(encode, acceptSocketHelper);
+                    }
                 });
             }
         }
 
         private static void Receive(Encoding encode, SocketHelper acceptSocketHelper)
         {
-            while (acceptSocketHelper.ISConnect)
+            if (!acceptSocketHelper.ISConnect)
             {
-                var buffer = new byte[4096];
-                var size = acceptSocketHelper.Receive(buffer);
-                if (size <= 0)
-                {
-                    continue;
-                }
-
-                var str = encode.GetString(buffer);
-                Console.WriteLine($"receive:{str}");
+                return;
             }
+            var buffer = new byte[4096];
+            var size = acceptSocketHelper.Receive(buffer);
+            if (size <= 0)
+            {
+                return;
+            }
+
+            var str = encode.GetString(buffer);
+            Console.WriteLine($"receive:{str}");
         }
 
         static void StartClient(string ip, int port)
@@ -76,12 +80,18 @@ namespace SerialPortProxyService.Test
 
             SocketHelper socketHelper = new SocketHelper(encode);
             socketHelper.Connect(ip, port);
+
             while (true)
             {
+                //send
                 var sendStr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 var size = socketHelper.Send(sendStr);
                 Console.WriteLine($"send:{sendStr}");
                 Thread.Sleep(1000);
+
+
+                //receive
+                Receive(encode, socketHelper);
             }
         }
     }

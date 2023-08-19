@@ -1,6 +1,7 @@
 ﻿using SerialPortProxyService.Common.Constant;
 using SerialPortProxyService.Common.Helper;
 using SerialPortProxyService.Common.Model;
+using System.Net.Sockets;
 using System.Text;
 
 namespace SerialPortProxyService.Common
@@ -11,6 +12,7 @@ namespace SerialPortProxyService.Common
         private SocketHelper acceptSocketHelper;
         private Task task;
         private CancellationTokenSource cancellationToken = new();
+        private SocketHelper clientSocketHelper = null;
 
         public RunningModeEnum RunningMode { get; set; }
 
@@ -67,24 +69,19 @@ namespace SerialPortProxyService.Common
 
             var encode = System.Text.Encoding.GetEncoding("GB2312");
 
-            SocketHelper socketHelper = new SocketHelper(encode);
-            socketHelper.Bind(ip, port);
+            acceptSocketHelper = new SocketHelper(encode);
+            acceptSocketHelper.Bind(ip, port);
 
-            socketHelper.Listen();
-
-
-
-            SocketHelper acceptSocketHelper = null;
-
+            acceptSocketHelper.Listen();
 
             while (true)
             {
-                var acceptSocket = socketHelper.Accept();
-                acceptSocketHelper = new SocketHelper(encode, acceptSocket);
+                var clientSocket = acceptSocketHelper.Accept();
+                clientSocketHelper = new SocketHelper(encode, clientSocket);
 
                 Task.Run(() =>
                 {
-                    ReceiveSocketData(encode, acceptSocketHelper);
+                    ReceiveSocketData(encode, clientSocketHelper);
                 });
             }
         }
@@ -133,11 +130,14 @@ namespace SerialPortProxyService.Common
             cancellationToken.Cancel();
             acceptSocketHelper.Close();
             acceptSocketHelper.Dispose();
+
+            clientSocketHelper?.Close();
+            clientSocketHelper?.Dispose();
         }
 
         public void Send(byte[] data)
         {
-            acceptSocketHelper.Send(data);
+            clientSocketHelper.Send(data);
         }
     }
 }
