@@ -18,13 +18,10 @@ namespace SerialPortProxyService.Common
         /// </summary>
         private SerialPortProxy serialPortProxy;
 
-        /// <summary>
-        /// 运行模式
-        /// </summary>
-        public RunningModeEnum RunningMode { get; set; }
         public ProxyAgentConfig AgentCofnig { get; set; }
 
-
+        public Action<byte[]> Recive { get; set; }
+        public Action<byte[]> Send { get; set; }
 
         public ProxyAgent()
         {
@@ -61,13 +58,6 @@ namespace SerialPortProxyService.Common
         {
             netProxy.Stop();
             serialPortProxy.Stop();
-        }
-
-        public void ChangeMode(RunningModeEnum mode)
-        {
-            this.RunningMode = mode;
-            netProxy.ChangeMode(mode);
-            serialPortProxy.ChangeMode(mode);
         }
     }
 }

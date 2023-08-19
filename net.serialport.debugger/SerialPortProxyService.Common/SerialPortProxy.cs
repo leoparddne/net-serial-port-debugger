@@ -8,7 +8,9 @@ namespace SerialPortProxyService.Common
     {
         private SerialPortProxyConfig serialPortProxyConfig;
         private SerialPortHelper serialPortHelper;
-        public RunningModeEnum RunningMode { get; set; }
+
+        public Action<byte[]> Recive { get; set; }
+        public Action<byte[]> Send { get; set; }
 
 
         public void Build(IProxyConfig config)
@@ -34,17 +36,13 @@ namespace SerialPortProxyService.Common
                serialPortProxyConfig.DataBits,
                serialPortProxyConfig.StopBits);
             serialPortHelper.Open();
+
         }
 
         public void Stop()
         {
             serialPortHelper.Close();
             serialPortHelper.Dispose();
-        }
-
-        public void ChangeMode(RunningModeEnum mode)
-        {
-            this.RunningMode = mode;
         }
     }
 }

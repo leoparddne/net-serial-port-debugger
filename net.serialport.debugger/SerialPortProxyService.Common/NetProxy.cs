@@ -9,6 +9,9 @@ namespace SerialPortProxyService.Common
         private NetProxyConfig netProxyConfig;
         private SocketHelper acceptSocketHelper;
 
+        public Action<byte[]> Recive { get; set; }
+        public Action<byte[]> Send { get; set; }
+
         public RunningModeEnum RunningMode { get; set; }
 
         public void Build(IProxyConfig config)
@@ -28,17 +31,13 @@ namespace SerialPortProxyService.Common
                 throw new Exception("net config is null");
             }
             acceptSocketHelper = new SocketHelper(netProxyConfig.Encode);
+
         }
 
         public void Stop()
         {
             acceptSocketHelper.Close();
             acceptSocketHelper.Dispose();
-        }
-
-        public void ChangeMode(RunningModeEnum mode)
-        {
-            this.RunningMode = mode;
         }
     }
 }
