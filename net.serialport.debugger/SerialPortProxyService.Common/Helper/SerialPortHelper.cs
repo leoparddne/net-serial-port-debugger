@@ -9,9 +9,9 @@ namespace SerialPortProxyService.Common.Helper
 
         private SerialPort SerialPort { get; set; }
 
-        public delegate void DataReceivedHandle(byte[] byteData);
+        //public delegate void DataReceivedHandle(byte[] byteData);
 
-        public event DataReceivedHandle DataReceivedEvent;
+        //public event DataReceivedHandle DataReceivedEvent;
 
 
         public bool ISOpen
@@ -65,7 +65,7 @@ namespace SerialPortProxyService.Common.Helper
             SerialPort.Read(readBuffer, 0, readBuffer.Length);
             //string data = Encoding.Default.GetString(readBuffer);
 
-            DataReceivedEvent.Invoke(readBuffer);
+            //DataReceivedEvent.Invoke(readBuffer);
 
             ReceiveCallback.Invoke(readBuffer);
         }

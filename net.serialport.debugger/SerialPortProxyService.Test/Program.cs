@@ -10,10 +10,10 @@ namespace SerialPortProxyService.Test
     {
         static void Main(string[] args)
         {
-            Task.Run(() =>
-            {
-                StartServer("127.0.0.1", 5000);
-            });
+            //Task.Run(() =>
+            //{
+            //    StartServer("127.0.0.1", 5000);
+            //});
 
             Task.Run(() =>
             {

@@ -45,13 +45,13 @@ namespace SerialPortProxyService.Common
                 case RunningModeEnum.SerialPort:
                     task = Task.Run(() =>
                    {
-                       StartServer(netProxyConfig.IP, netProxyConfig.Port);
+                       StartClient(netProxyConfig.IP, netProxyConfig.Port);
                    }, cancellationToken.Token);
                     break;
                 case RunningModeEnum.Net:
                     task = Task.Run(() =>
                    {
-                       StartClient(netProxyConfig.IP, netProxyConfig.Port);
+                       StartServer(netProxyConfig.IP, netProxyConfig.Port);
                    }, cancellationToken.Token);
                     break;
                 default:
@@ -100,8 +100,13 @@ namespace SerialPortProxyService.Common
                     continue;
                 }
 
-                var str = encode.GetString(buffer);
+                var finalBuffer = new byte[size];
+
+                buffer.ToList().CopyTo(0, finalBuffer, 0, size);
+
+                var str = encode.GetString(finalBuffer);
                 Console.WriteLine($"receive:{str}");
+                Receive(finalBuffer);
             }
         }
 

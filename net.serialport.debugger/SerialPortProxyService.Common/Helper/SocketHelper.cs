@@ -67,6 +67,7 @@ namespace SerialPortProxyService.Common.Helper
             return SocketInstance.Accept();
         }
 
+
         public int Receive(byte[] buffer)
         {
             var result = SocketInstance.Receive(buffer);
