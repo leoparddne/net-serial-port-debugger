@@ -3,22 +3,47 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SerialPortProxyService.Win" xmlns:vm="clr-namespace:SerialPortProxyService.Win.VM"
+        xmlns:local="clr-namespace:SerialPortProxyService.Win"
+        xmlns:vm="clr-namespace:SerialPortProxyService.Win.VM"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </Window.Resources>
     <Window.DataContext>
         <vm:VMMain/>
     </Window.DataContext>
     <Grid Margin="10">
         <DockPanel>
-            <Grid DockPanel.Dock="Bottom">
-                <Button Content="开始转发" HorizontalAlignment="Stretch"/>
-            </Grid>
-            <Grid>
-                <StackPanel>
-                    <ComboBox ItemsSource="{Binding SerialPortList}"/>
+            <Grid DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Content="串口转发" IsChecked="True" Name="btnSerialSelect" GroupName="modeSelect"/>
+                    <RadioButton Content="网络转发" Name="btnNetSelect" GroupName="modeSelect"/>
                 </StackPanel>
             </Grid>
+            <Grid Margin="5">
+                <DockPanel Visibility="{Binding ElementName=btnSerialSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
+                    <Grid DockPanel.Dock="Bottom">
+                        <Button Content="开始监听" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                    <Grid>
+                        <StackPanel>
+                            <ComboBox ItemsSource="{Binding SerialPortList}"/>
+                        </StackPanel>
+                    </Grid>
+                </DockPanel>
+                <DockPanel  Visibility="{Binding ElementName=btnNetSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
+                    <Grid DockPanel.Dock="Bottom">
+                        <Button Content="开始转发" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                    <Grid>
+                        <StackPanel>
+                            <TextBox />
+                        </StackPanel>
+                    </Grid>
+                </DockPanel>
+            </Grid>
         </DockPanel>
+
     </Grid>
 </Window>
