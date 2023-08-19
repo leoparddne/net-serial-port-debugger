@@ -1,12 +1,11 @@
-﻿using SerialPortProxyService.Common.Constant;
-using SerialPortProxyService.Common.Model;
+﻿using SerialPortProxyService.Common.Model;
 
 namespace SerialPortProxyService.Common
 {
     /// <summary>
     /// 统一代理
     /// </summary>
-    public class ProxyAgent : IProxyBase
+    public class ProxyAgent
     {
         /// <summary>
         /// 网络代理
@@ -20,13 +19,11 @@ namespace SerialPortProxyService.Common
 
         public ProxyAgentConfig AgentCofnig { get; set; }
 
-        public Action<byte[]> Recive { get; set; }
-        public Action<byte[]> Send { get; set; }
 
         public ProxyAgent()
         {
-            netProxy = new();
-            serialPortProxy = new();
+            netProxy = new(SocketReceive);
+            serialPortProxy = new(SerialPortReceive);
         }
 
         /// <summary>
@@ -58,6 +55,16 @@ namespace SerialPortProxyService.Common
         {
             netProxy.Stop();
             serialPortProxy.Stop();
+        }
+
+        public void SerialPortReceive(byte[] data)
+        {
+            netProxy.Send(data);
+        }
+
+        public void SocketReceive(byte[] data)
+        {
+            serialPortProxy.Send(data);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO.Ports;
+﻿using System.IO.Ports;
 using System.Text;
 
 namespace SerialPortProxyService.Common.Helper
@@ -67,7 +66,10 @@ namespace SerialPortProxyService.Common.Helper
             DataReceivedEvent.Invoke(readBuffer);
         }
 
-
+        public void Send(byte[] buffer)
+        {
+            SerialPort.Write(buffer, 0, buffer.Count());
+        }
         public void Send(byte[] buffer, int offset, int count)
         {
             SerialPort.Write(buffer, offset, count);

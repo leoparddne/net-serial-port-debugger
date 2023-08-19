@@ -1,19 +1,15 @@
-﻿using SerialPortProxyService.Common.Constant;
-using SerialPortProxyService.Common.Model;
+﻿using SerialPortProxyService.Common.Model;
 
 namespace SerialPortProxyService.Common
 {
     public interface IProxyBase
     {
-        /// <summary>
-        /// 接收数据时回掉
-        /// </summary>
-        Action<byte[]> Recive { get; set; }
+        Action<byte[]> Receive { get; set; }
 
         /// <summary>
-        /// 发送数据时回掉
+        /// 发送数据
         /// </summary>
-        Action<byte[]> Send { get; set; }
+        void Send(byte[] data);
         void Start();
         void Stop();
 

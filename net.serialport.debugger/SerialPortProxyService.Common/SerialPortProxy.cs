@@ -8,9 +8,14 @@ namespace SerialPortProxyService.Common
     {
         private SerialPortProxyConfig serialPortProxyConfig;
         private SerialPortHelper serialPortHelper;
+        public Action<byte[]> Receive { get; set; }
 
-        public Action<byte[]> Recive { get; set; }
-        public Action<byte[]> Send { get; set; }
+
+        public SerialPortProxy(Action<byte[]> receive)
+        {
+            Receive = receive;
+        }
+
 
 
         public void Build(IProxyConfig config)
@@ -43,6 +48,11 @@ namespace SerialPortProxyService.Common
         {
             serialPortHelper.Close();
             serialPortHelper.Dispose();
+        }
+
+       public void Send(byte[] data)
+        {
+            serialPortHelper.Send(data);
         }
     }
 }

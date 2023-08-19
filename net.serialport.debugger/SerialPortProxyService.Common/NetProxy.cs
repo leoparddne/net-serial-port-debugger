@@ -9,10 +9,14 @@ namespace SerialPortProxyService.Common
         private NetProxyConfig netProxyConfig;
         private SocketHelper acceptSocketHelper;
 
-        public Action<byte[]> Recive { get; set; }
-        public Action<byte[]> Send { get; set; }
-
         public RunningModeEnum RunningMode { get; set; }
+
+        public Action<byte[]> Receive { get; set; }
+
+        public NetProxy(Action<byte[]> receive)
+        {
+            Receive = receive;
+        }
 
         public void Build(IProxyConfig config)
         {
@@ -38,6 +42,11 @@ namespace SerialPortProxyService.Common
         {
             acceptSocketHelper.Close();
             acceptSocketHelper.Dispose();
+        }
+
+        public void Send(byte[] data)
+        {
+            acceptSocketHelper.Send(data);
         }
     }
 }

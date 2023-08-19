@@ -29,7 +29,10 @@ namespace SerialPortProxyService.Common.Helper
             SocketInstance = socket;
         }
 
-
+        public int Send(byte[] data)
+        {
+            return SocketInstance.Send(data);
+        }
         public int Send(string msg)
         {
             var byteStr = Encode.GetBytes(msg);
