@@ -21,7 +21,8 @@ namespace SerialPortProxyService.Common
         /// <summary>
         /// 运行模式
         /// </summary>
-        public RunningModeEnum RunningMode { get; private set; }
+        public RunningModeEnum RunningMode { get; set; }
+        public ProxyAgentConfig AgentCofnig { get; set; }
 
         public void ChangeMode(RunningModeEnum mode)
         {
@@ -43,6 +44,8 @@ namespace SerialPortProxyService.Common
             {
                 throw new Exception("error config");
             }
+
+            this.AgentCofnig = agentConfig;
 
             //串口模式下需要本机串口及远程目标网络数据
             //网络模式下需要本机监听网络信息及本机目标串口信息

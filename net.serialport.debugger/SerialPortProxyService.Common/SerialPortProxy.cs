@@ -8,7 +8,12 @@ namespace SerialPortProxyService.Common
 
         public void Build(IProxyConfig config)
         {
-            throw new NotImplementedException();
+            if (config is not SerialPortProxyConfig serialPortConfig)
+            {
+                throw new Exception("serialport error config");
+            }
+
+            serialPortProxyConfig = serialPortConfig;
         }
 
         public void Start()
