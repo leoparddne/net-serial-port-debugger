@@ -66,25 +66,28 @@ namespace SerialPortProxyService.Common
 
             acceptSocketHelper.Listen();
 
-            while (true)
+            Task.Run(() =>
             {
-                if (cancellationToken.IsCancellationRequested)
+                while (true)
                 {
-                    return;
-                }
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
 
-                try
-                {
-                    var clientSocket = acceptSocketHelper.Accept();
-                    clientSocketHelper = new SocketHelper(netProxyConfig.Encode, clientSocket);
+                    try
+                    {
+                        var clientSocket = acceptSocketHelper.Accept();
+                        clientSocketHelper = new SocketHelper(netProxyConfig.Encode, clientSocket);
 
-                    ReceiveSocketData(clientSocketHelper);
+                        ReceiveSocketData(clientSocketHelper);
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.WriteLine(e.Message);
+                    }
                 }
-                catch (Exception e)
-                {
-                    Trace.WriteLine(e.Message);
-                }
-            }
+            }, cancellationToken.Token);
         }
 
         private void ReceiveSocketData(SocketHelper acceptSocketHelper)
@@ -93,6 +96,11 @@ namespace SerialPortProxyService.Common
             {
                 while (acceptSocketHelper.ISConnect)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
                     var buffer = new byte[4096];
                     int size = 0;
 
