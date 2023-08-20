@@ -76,10 +76,7 @@ namespace SerialPortProxyService.Common
                 var clientSocket = acceptSocketHelper.Accept();
                 clientSocketHelper = new SocketHelper(netProxyConfig.Encode, clientSocket);
 
-                Task.Run(() =>
-                {
-                    ReceiveSocketData(clientSocketHelper);
-                });
+                ReceiveSocketData(clientSocketHelper);
             }
         }
 
@@ -109,10 +106,7 @@ namespace SerialPortProxyService.Common
             clientSocketHelper.Connect(ip, port);
             while (true)
             {
-                Task.Run(() =>
-                {
-                    ReceiveSocketData(clientSocketHelper);
-                });
+                ReceiveSocketData(clientSocketHelper);
             }
         }
 
