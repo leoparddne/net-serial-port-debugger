@@ -10,15 +10,15 @@ namespace SerialPortProxyService.Test
     {
         static void Main(string[] args)
         {
-            //Task.Run(() =>
-            //{
-            //    StartServer("127.0.0.1", 5000);
-            //});
-
             Task.Run(() =>
             {
-                StartClient("127.0.0.1", 5000);
+                StartServer("127.0.0.1", 5000);
             });
+
+            //Task.Run(() =>
+            //{
+            //    StartClient("127.0.0.1", 5000);
+            //});
 
             Console.ReadLine();
         }
@@ -50,6 +50,9 @@ namespace SerialPortProxyService.Test
                     while (acceptSocketHelper.ISConnect)
                     {
                         Receive(encode, acceptSocketHelper);
+                        var sendStr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        acceptSocketHelper.Send(sendStr);
+                        Console.WriteLine($"send:{sendStr}");
                     }
                 });
             }

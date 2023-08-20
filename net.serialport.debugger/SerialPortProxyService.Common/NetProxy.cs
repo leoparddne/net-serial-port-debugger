@@ -1,7 +1,6 @@
 ﻿using SerialPortProxyService.Common.Constant;
 using SerialPortProxyService.Common.Helper;
 using SerialPortProxyService.Common.Model;
-using System.Net.Sockets;
 using System.Text;
 
 namespace SerialPortProxyService.Common
@@ -67,9 +66,7 @@ namespace SerialPortProxyService.Common
         {
             Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-            var encode = System.Text.Encoding.GetEncoding("GB2312");
-
-            acceptSocketHelper = new SocketHelper(encode);
+            acceptSocketHelper = new SocketHelper(netProxyConfig.Encode);
             acceptSocketHelper.Bind(ip, port);
 
             acceptSocketHelper.Listen();
@@ -77,16 +74,16 @@ namespace SerialPortProxyService.Common
             while (true)
             {
                 var clientSocket = acceptSocketHelper.Accept();
-                clientSocketHelper = new SocketHelper(encode, clientSocket);
+                clientSocketHelper = new SocketHelper(netProxyConfig.Encode, clientSocket);
 
                 Task.Run(() =>
                 {
-                    ReceiveSocketData(encode, clientSocketHelper);
+                    ReceiveSocketData(clientSocketHelper);
                 });
             }
         }
 
-        private void ReceiveSocketData(Encoding encode, SocketHelper acceptSocketHelper)
+        private void ReceiveSocketData(SocketHelper acceptSocketHelper)
         {
             while (acceptSocketHelper.ISConnect)
             {
@@ -108,12 +105,14 @@ namespace SerialPortProxyService.Common
 
         private void StartClient(string ip, int port)
         {
-            SocketHelper socketHelper = new SocketHelper(netProxyConfig.Encode);
-            socketHelper.Connect(ip, port);
+            clientSocketHelper = new SocketHelper(netProxyConfig.Encode);
+            clientSocketHelper.Connect(ip, port);
             while (true)
             {
-                var sendStr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                Thread.Sleep(1000);
+                Task.Run(() =>
+                {
+                    ReceiveSocketData(clientSocketHelper);
+                });
             }
         }
 
