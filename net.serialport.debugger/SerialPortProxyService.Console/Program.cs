@@ -32,7 +32,7 @@ proxy.Build(new ProxyAgentConfig(
 );
 
 //proxy.SwitchMode(RunningModeEnum.Net);
-proxy.SwitchMode(RunningModeEnum.SerialPort);
+proxy.SwitchMode(RunningModeEnum.Client);
 
 proxy.Start();
 

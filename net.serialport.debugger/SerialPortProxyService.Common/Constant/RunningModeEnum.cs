@@ -11,11 +11,11 @@ namespace SerialPortProxyService.Common.Constant
         /// <summary>
         /// serial port => net
         /// </summary>
-        SerialPort,
+        Client,
 
         /// <summary>
         /// net => serial port
         /// </summary>
-        Net
+        Server
     }
 }

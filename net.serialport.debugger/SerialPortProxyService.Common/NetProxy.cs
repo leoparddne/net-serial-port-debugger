@@ -43,13 +43,13 @@ namespace SerialPortProxyService.Common
 
             switch (RunningMode)
             {
-                case RunningModeEnum.SerialPort:
+                case RunningModeEnum.Client:
                     task = Task.Run(() =>
                    {
                        StartClient(netProxyConfig.IP, netProxyConfig.Port);
                    }, cancellationToken.Token);
                     break;
-                case RunningModeEnum.Net:
+                case RunningModeEnum.Server:
                     task = Task.Run(() =>
                    {
                        StartServer("0.0.0.0", netProxyConfig.Port);
