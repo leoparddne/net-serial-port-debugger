@@ -23,7 +23,7 @@ namespace SerialPortProxyService.Win
         {
             // 处理未被观察的异常
             // 可以记录日志或执行其他操作
-            Growl.ErrorGlobal("TaskScheduler_UnobservedTaskException出现错误：" + Environment.NewLine + e.Exception.ToString());
+            Growl.ErrorGlobal("TaskScheduler_UnobservedTaskException出现错误：" + Environment.NewLine + e.Exception.Message);
 
 
             // 标记异常已处理，防止应用程序崩溃
@@ -43,7 +43,7 @@ namespace SerialPortProxyService.Win
             // 处理未经处理的异常
             // 请注意，这里的异常是无法恢复的，应用程序可能会退出
             // 显示错误信息
-            Growl.ErrorGlobal("App_DispatcherUnhandledException出现错误：" + Environment.NewLine + e.Exception.ToString());
+            Growl.ErrorGlobal("App_DispatcherUnhandledException出现错误：" + Environment.NewLine + e.Exception.Message);
 
             // 终止事件传播,防止应用程序崩溃
             e.Handled = true;
