@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SerialPortProxyService.Win"
         xmlns:vm="clr-namespace:SerialPortProxyService.Win.VM"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -17,28 +18,22 @@
         <DockPanel>
             <Grid DockPanel.Dock="Top">
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton Content="串口转发" IsChecked="True" Name="btnSerialSelect" GroupName="modeSelect"/>
-                    <RadioButton Content="网络转发" Name="btnNetSelect" GroupName="modeSelect"/>
+                    <RadioButton Content="Client模式" IsChecked="True" Name="btnSerialSelect" GroupName="modeSelect"/>
+                    <RadioButton Content="Server模式" Name="btnNetSelect" GroupName="modeSelect"/>
                 </StackPanel>
             </Grid>
             <Grid Margin="5">
-                <DockPanel Visibility="{Binding ElementName=btnSerialSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
+                <DockPanel>
                     <Grid DockPanel.Dock="Bottom">
                         <Button Content="开始监听" HorizontalAlignment="Stretch"/>
                     </Grid>
                     <Grid>
                         <StackPanel>
-                            <ComboBox ItemsSource="{Binding SerialPortList}"/>
-                        </StackPanel>
-                    </Grid>
-                </DockPanel>
-                <DockPanel  Visibility="{Binding ElementName=btnNetSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
-                    <Grid DockPanel.Dock="Bottom">
-                        <Button Content="开始转发" HorizontalAlignment="Stretch"/>
-                    </Grid>
-                    <Grid>
-                        <StackPanel>
-                            <TextBox />
+                            <hc:ComboBox ItemsSource="{Binding SerialPortList}"  hc:InfoElement.Placeholder="请选择串口" hc:InfoElement.Title="串口名称" hc:TitleElement.TitlePlacement="Left" />
+                            <StackPanel  Visibility="{Binding ElementName=btnSerialSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
+                                <hc:TextBox Margin="0 5" hc:InfoElement.Placeholder="请输入服务端ip" hc:InfoElement.Title="server ip" hc:TitleElement.TitlePlacement="Left" />
+                                <hc:NumericUpDown Value="5000"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="请输入服务端端口" hc:InfoElement.Title="server port" hc:TitleElement.TitlePlacement="Left"/>
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                 </DockPanel>
