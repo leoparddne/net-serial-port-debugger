@@ -1,6 +1,7 @@
 ﻿using SerialPortProxyService.Common.Constant;
 using SerialPortProxyService.Common.Helper;
 using SerialPortProxyService.Common.Model;
+using System.Diagnostics;
 using System.Text;
 
 namespace SerialPortProxyService.Common
@@ -45,15 +46,15 @@ namespace SerialPortProxyService.Common
             {
                 case RunningModeEnum.Client:
                     task = Task.Run(() =>
-                   {
-                       StartClient(netProxyConfig.IP, netProxyConfig.Port);
-                   }, cancellationToken.Token);
+                    {
+                        StartClient(netProxyConfig.IP, netProxyConfig.Port);
+                    }, cancellationToken.Token);
                     break;
                 case RunningModeEnum.Server:
                     task = Task.Run(() =>
-                   {
-                       StartServer("0.0.0.0", netProxyConfig.Port);
-                   }, cancellationToken.Token);
+                    {
+                        StartServer("0.0.0.0", netProxyConfig.Port);
+                    }, cancellationToken.Token);
                     break;
                 default:
                     throw new Exception("error running mode");
@@ -73,10 +74,22 @@ namespace SerialPortProxyService.Common
 
             while (true)
             {
-                var clientSocket = acceptSocketHelper.Accept();
-                clientSocketHelper = new SocketHelper(netProxyConfig.Encode, clientSocket);
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
 
-                ReceiveSocketData(clientSocketHelper);
+                try
+                {
+                    var clientSocket = acceptSocketHelper.Accept();
+                    clientSocketHelper = new SocketHelper(netProxyConfig.Encode, clientSocket);
+
+                    ReceiveSocketData(clientSocketHelper);
+                }
+                catch (Exception e)
+                {
+                    Trace.WriteLine(e.Message);
+                }
             }
         }
 
@@ -85,7 +98,16 @@ namespace SerialPortProxyService.Common
             while (acceptSocketHelper.ISConnect)
             {
                 var buffer = new byte[4096];
-                var size = acceptSocketHelper.Receive(buffer);
+                int size = 0;
+
+                try
+                {
+                    size = acceptSocketHelper.Receive(buffer);
+                }
+                catch (Exception e)
+                {
+                    Trace.WriteLine(e.Message);
+                }
                 if (size <= 0)
                 {
                     continue;
@@ -95,7 +117,14 @@ namespace SerialPortProxyService.Common
 
                 buffer.ToList().CopyTo(0, finalBuffer, 0, size);
 
-                Receive(finalBuffer);
+                try
+                {
+                    Receive(finalBuffer);
+                }
+                catch (Exception e)
+                {
+                    Trace.WriteLine(e.Message);
+                }
             }
         }
 
@@ -106,6 +135,10 @@ namespace SerialPortProxyService.Common
             clientSocketHelper.Connect(ip, port);
             while (true)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
                 ReceiveSocketData(clientSocketHelper);
             }
         }
