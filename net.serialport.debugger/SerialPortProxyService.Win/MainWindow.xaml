@@ -19,17 +19,24 @@
             <Grid DockPanel.Dock="Top">
                 <StackPanel Orientation="Horizontal">
                     <RadioButton Content="Client模式" IsChecked="True" Name="btnSerialSelect" GroupName="modeSelect"/>
-                    <RadioButton Content="Server模式" Name="btnNetSelect" GroupName="modeSelect"/>
+                    <RadioButton Margin="5 0" Content="Server模式" Name="btnNetSelect" GroupName="modeSelect"/>
                 </StackPanel>
             </Grid>
             <Grid Margin="5">
                 <DockPanel>
                     <Grid DockPanel.Dock="Bottom">
-                        <Button Content="开始监听" HorizontalAlignment="Stretch"/>
+                        <Button Content="开始监听" HorizontalAlignment="Stretch" Command="{Binding OpenServiceCommand}"/>
                     </Grid>
                     <Grid>
                         <StackPanel>
-                            <hc:ComboBox ItemsSource="{Binding SerialPortList}"  hc:InfoElement.Placeholder="请选择串口" hc:InfoElement.Title="串口名称" hc:TitleElement.TitlePlacement="Left" />
+                            <StackPanel Orientation="Vertical">
+                                <hc:ComboBox ItemsSource="{Binding SerialPortList}" SelectedItem="{Binding SelectSerialPort}"  hc:InfoElement.Placeholder="请选择串口" hc:InfoElement.Title="串口名称" hc:TitleElement.TitlePlacement="Left" />
+                                <hc:NumericUpDown Value="{Binding BaudRate}"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="波特率" hc:InfoElement.Title="波特率" hc:TitleElement.TitlePlacement="Left"/>
+                                <hc:ComboBox ItemsSource="{Binding ParityList}" SelectedItem="{Binding SelectParity}" DisplayMemberPath="Key"   hc:InfoElement.Placeholder="校验位" hc:InfoElement.Title="校验位" hc:TitleElement.TitlePlacement="Left"/>
+                                <hc:NumericUpDown Value="{Binding DataBits}" Minimum="0" Maximum="8"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="数据位" hc:InfoElement.Title="数据位" hc:TitleElement.TitlePlacement="Left"/>
+                                <hc:ComboBox ItemsSource="{Binding StopBitsList}" SelectedItem="{Binding SelectStopBits}" DisplayMemberPath="Key"    hc:InfoElement.Placeholder="停止位" hc:InfoElement.Title="停止位" hc:TitleElement.TitlePlacement="Left"/>
+                            </StackPanel>
+
                             <StackPanel  Visibility="{Binding ElementName=btnSerialSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
                                 <hc:TextBox Margin="0 5" hc:InfoElement.Placeholder="请输入服务端ip" hc:InfoElement.Title="server ip" hc:TitleElement.TitlePlacement="Left" />
                                 <hc:NumericUpDown Value="5000"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="请输入服务端端口" hc:InfoElement.Title="server port" hc:TitleElement.TitlePlacement="Left"/>
