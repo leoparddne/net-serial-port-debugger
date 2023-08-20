@@ -40,7 +40,7 @@ namespace SerialPortProxyService.Win.VM
         /// <summary>
         /// 是否为客户端模式
         /// </summary>
-        public bool ISClientMode { get; set; }
+        public bool ISClientMode { get; set; } = true;
 
         /// <summary>
         /// 选中的串口
