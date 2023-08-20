@@ -50,7 +50,7 @@ namespace SerialPortProxyService.Win.VM
 
         public int BaudRate { get; set; } = 9600;
         public Parity Parity { get; set; }
-        public int DataBits { get; set; }
+        public int DataBits { get; set; } = 8;
         public StopBits StopBits { get; set; }
 
         public ICommand OpenServiceCommand { get; set; }
@@ -76,41 +76,41 @@ namespace SerialPortProxyService.Win.VM
                     Growl.Error("请选择串口");
                     return;
                 }
-
-                proxyAgent = new ProxyAgent();
-                Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-                var encode = System.Text.Encoding.GetEncoding("GB2312");
-
-                proxyAgent.Build(new ProxyAgentConfig(
-
-                     new NetProxyConfig
-                     {
-                         Encode = encode,
-                         IP = IP,
-                         Port = Port
-                     },
-                     new SerialPortProxyConfig
-                     {
-                         Encode = encode,
-                         PortName = SelectSerialPort,
-                         BaudRate = BaudRate,
-                         Parity = (Parity)SelectParity.Value,
-                         DataBits = DataBits,
-                         StopBits = (StopBits)SelectStopBits.Value
-                     })
-                );
-
-                if (ISClientMode)
-                {
-                    proxyAgent.SwitchMode(RunningModeEnum.Client);
-                }
-                else
-                {
-                    proxyAgent.SwitchMode(RunningModeEnum.Server);
-                }
-
+                
                 if (ModifyEnable)
                 {
+                    proxyAgent = new ProxyAgent();
+                    Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+                    var encode = System.Text.Encoding.GetEncoding("GB2312");
+
+                    proxyAgent.Build(new ProxyAgentConfig(
+
+                         new NetProxyConfig
+                         {
+                             Encode = encode,
+                             IP = IP,
+                             Port = Port
+                         },
+                         new SerialPortProxyConfig
+                         {
+                             Encode = encode,
+                             PortName = SelectSerialPort,
+                             BaudRate = BaudRate,
+                             Parity = (Parity)SelectParity.Value,
+                             DataBits = DataBits,
+                             StopBits = (StopBits)SelectStopBits.Value
+                         })
+                    );
+
+                    if (ISClientMode)
+                    {
+                        proxyAgent.SwitchMode(RunningModeEnum.Client);
+                    }
+                    else
+                    {
+                        proxyAgent.SwitchMode(RunningModeEnum.Server);
+                    }
+
                     proxyAgent.Start();
                 }
                 else
