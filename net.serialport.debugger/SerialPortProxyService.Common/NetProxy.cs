@@ -53,7 +53,7 @@ namespace SerialPortProxyService.Common
                 case RunningModeEnum.Net:
                     task = Task.Run(() =>
                    {
-                       StartServer(netProxyConfig.IP, netProxyConfig.Port);
+                       StartServer("0.0.0.0", netProxyConfig.Port);
                    }, cancellationToken.Token);
                     break;
                 default:
