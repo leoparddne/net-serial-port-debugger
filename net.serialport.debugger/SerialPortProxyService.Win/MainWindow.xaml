@@ -24,7 +24,7 @@
                     <Grid IsEnabled="{Binding ModifyEnable}">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton Content="Client模式" IsChecked="True" Name="btnSerialSelect" GroupName="modeSelect"/>
+                                <RadioButton Content="Client模式" IsChecked="{Binding ISClientMode}" Name="btnSerialSelect" GroupName="modeSelect"/>
                                 <RadioButton Margin="5 0" Content="Server模式" Name="btnNetSelect" GroupName="modeSelect"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
@@ -36,8 +36,8 @@
                             </StackPanel>
 
                             <StackPanel  Visibility="{Binding ElementName=btnSerialSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
-                                <hc:TextBox Margin="0 5" hc:InfoElement.Placeholder="请输入服务端ip" hc:InfoElement.Title="server ip" hc:TitleElement.TitlePlacement="Left" />
-                                <hc:NumericUpDown Value="5000"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="请输入服务端端口" hc:InfoElement.Title="server port" hc:TitleElement.TitlePlacement="Left"/>
+                                <hc:TextBox Text="{Binding IP}" Margin="0 5" hc:InfoElement.Placeholder="请输入服务端ip" hc:InfoElement.Title="server ip" hc:TitleElement.TitlePlacement="Left" />
+                                <hc:NumericUpDown Value="{Binding Port}"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="请输入服务端端口" hc:InfoElement.Title="server port" hc:TitleElement.TitlePlacement="Left"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
