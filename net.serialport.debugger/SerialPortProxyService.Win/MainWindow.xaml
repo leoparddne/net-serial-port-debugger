@@ -16,19 +16,17 @@
     </Window.DataContext>
     <Grid Margin="10">
         <DockPanel>
-            <Grid DockPanel.Dock="Top">
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton Content="Client模式" IsChecked="True" Name="btnSerialSelect" GroupName="modeSelect"/>
-                    <RadioButton Margin="5 0" Content="Server模式" Name="btnNetSelect" GroupName="modeSelect"/>
-                </StackPanel>
+            <Grid DockPanel.Dock="Bottom">
+                <Button Content="{Binding BtnDisplay}" HorizontalAlignment="Stretch" Command="{Binding OpenServiceCommand}" Height="45"/>
             </Grid>
             <Grid Margin="5">
                 <DockPanel>
-                    <Grid DockPanel.Dock="Bottom">
-                        <Button Content="开始监听" HorizontalAlignment="Stretch" Command="{Binding OpenServiceCommand}"/>
-                    </Grid>
-                    <Grid>
+                    <Grid IsEnabled="{Binding ModifyEnable}">
                         <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Content="Client模式" IsChecked="True" Name="btnSerialSelect" GroupName="modeSelect"/>
+                                <RadioButton Margin="5 0" Content="Server模式" Name="btnNetSelect" GroupName="modeSelect"/>
+                            </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <hc:ComboBox ItemsSource="{Binding SerialPortList}" SelectedItem="{Binding SelectSerialPort}"  hc:InfoElement.Placeholder="请选择串口" hc:InfoElement.Title="串口名称" hc:TitleElement.TitlePlacement="Left" />
                                 <hc:NumericUpDown Value="{Binding BaudRate}"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="波特率" hc:InfoElement.Title="波特率" hc:TitleElement.TitlePlacement="Left"/>

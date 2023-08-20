@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
@@ -14,6 +13,8 @@ namespace SerialPortProxyService.Win.VM
     [AddINotifyPropertyChangedInterface]
     public class VMMain
     {
+        public string BtnDisplay { get; set; } = "开始监听";
+        public bool ModifyEnable { get; set; } = true;
         private SerialPortHelper SerialPortHelper;
 
         public ObservableCollection<string> SerialPortList { get; set; }
@@ -55,16 +56,20 @@ namespace SerialPortProxyService.Win.VM
 
             OpenServiceCommand = new BaseCommand((para) =>
             {
-                Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-                var encode = System.Text.Encoding.GetEncoding("GB2312");
-                SerialPortHelper = new SerialPortHelper(encode, "COM2", 9600, Parity.None, 8, StopBits.One);
-                //SerialPortHelper.DataReceivedEvent += SerialPortHelper_DataReceivedEvent;
-                SerialPortHelper.ReceiveCallback = SerialPortHelper_DataReceivedEvent;
-                SerialPortHelper.Open();
+                //Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+                //var encode = System.Text.Encoding.GetEncoding("GB2312");
+                //SerialPortHelper = new SerialPortHelper(encode, "COM2", 9600, Parity.None, 8, StopBits.One);
+                ////SerialPortHelper.DataReceivedEvent += SerialPortHelper_DataReceivedEvent;
+                //SerialPortHelper.ReceiveCallback = SerialPortHelper_DataReceivedEvent;
+                //SerialPortHelper.Open();
 
-                var byteStr = encode.GetBytes("test123!@#中文.");
+                //var byteStr = encode.GetBytes("test123!@#中文.");
 
-                SerialPortHelper.Send(byteStr, 0, byteStr.Length);
+                //SerialPortHelper.Send(byteStr, 0, byteStr.Length);
+
+                //监听成功后不允许修改
+                ModifyEnable = !ModifyEnable;
+                BtnDisplay = ModifyEnable ? "开始监听" : "停止监听";
             });
         }
 
