@@ -1,5 +1,6 @@
-﻿using SerialPortProxyService.Common.Constant;
+using SerialPortProxyService.Common.Constant;
 using SerialPortProxyService.Common.Model;
+using System.Diagnostics;
 using System.Text;
 
 namespace SerialPortProxyService.Common
@@ -49,8 +50,8 @@ namespace SerialPortProxyService.Common
 
         public void Start()
         {
-            netProxy.Start();
             serialPortProxy.Start();
+            netProxy.Start();
         }
 
         public void Stop()
@@ -66,7 +67,7 @@ namespace SerialPortProxyService.Common
             var encode = System.Text.Encoding.GetEncoding("GB2312");
             var str = encode.GetString(data);
 
-            Console.WriteLine($"serialport receive:{str}");
+            Trace.WriteLine($"serialport receive:{str}");
 #endif
             netProxy.Send(data);
         }
@@ -78,7 +79,7 @@ namespace SerialPortProxyService.Common
             var encode = System.Text.Encoding.GetEncoding("GB2312");
             var str = encode.GetString(data);
 
-            Console.WriteLine($"socket receive:{str}");
+            Trace.WriteLine($"socket receive:{str}");
 #endif
             serialPortProxy.Send(data);
         }
