@@ -1,4 +1,4 @@
-﻿using System.IO.Ports;
+using System.IO.Ports;
 using System.Text;
 
 namespace SerialPortProxyService.Common.Helper
@@ -61,7 +61,7 @@ namespace SerialPortProxyService.Common.Helper
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            byte[] readBuffer = new byte[SerialPort.ReadBufferSize];
+            byte[] readBuffer = new byte[SerialPort.BytesToRead];
             SerialPort.Read(readBuffer, 0, readBuffer.Length);
             //string data = Encoding.Default.GetString(readBuffer);
 
