@@ -1,4 +1,4 @@
-﻿<Window x:Class="SerialPortProxyService.Win.MainWindow"
+<Window x:Class="SerialPortProxyService.Win.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -34,9 +34,11 @@
                                 <hc:NumericUpDown Value="{Binding DataBits}" Minimum="0" Maximum="8"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="数据位" hc:InfoElement.Title="数据位" hc:TitleElement.TitlePlacement="Left"/>
                                 <hc:ComboBox ItemsSource="{Binding StopBitsList}" SelectedItem="{Binding SelectStopBits}" DisplayMemberPath="Key"    hc:InfoElement.Placeholder="停止位" hc:InfoElement.Title="停止位" hc:TitleElement.TitlePlacement="Left"/>
                             </StackPanel>
-
                             <StackPanel  Visibility="{Binding ElementName=btnSerialSelect, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter} }">
                                 <hc:TextBox Text="{Binding IP}" Margin="0 5" hc:InfoElement.Placeholder="请输入服务端ip" hc:InfoElement.Title="server ip" hc:TitleElement.TitlePlacement="Left" />
+                            </StackPanel>
+
+                            <StackPanel >
                                 <hc:NumericUpDown Value="{Binding Port}"  Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Placeholder="请输入服务端端口" hc:InfoElement.Title="server port" hc:TitleElement.TitlePlacement="Left"/>
                             </StackPanel>
                         </StackPanel>
