@@ -4,7 +4,7 @@
 串口调试工具，使用网络转发串口数据以实现调试远程串口的需求
 
 #### 软件架构
-程序主体使用.net6实现  
+程序主体使用.net6实现,服务部署使用.net7  
 基础结构划分情况如下  
 SerialPortProxyService.Common - 核心、公共逻辑
 SerialPortProxyService.Win - GUI模式逻辑，基于WPF+handycontrol
@@ -13,10 +13,6 @@ SerialPortProxyService.Test - 测试代码,用作部分单元测试不便于测�
 SerialPortProxyService.MSTest - 单元测试,基于MSTest框架
 SerialPortProxyService.Console - 部分测试代码,命令行模式逻辑
 
-
-#### 安装教程
-
-.net6环境
 
 #### 使用说明
 提供双向通信功能，
