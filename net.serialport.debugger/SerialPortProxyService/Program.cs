@@ -40,7 +40,7 @@ proxyAgent.Build(new ProxyAgentConfig(
 
 switch (config.Mode)
 {
-    case  RunningModeEnum.Client:
+    case RunningModeEnum.Client:
         proxyAgent.SwitchMode(RunningModeEnum.Client);
         break;
     case RunningModeEnum.Server:
@@ -55,12 +55,21 @@ switch (config.Mode)
 proxyAgent.Start();
 
 
-
-IHost host = Host.CreateDefaultBuilder(args)
+var hostBuilder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         //services.AddHostedService<Worker>();
-    })
-    .Build();
+    });
+if (System.OperatingSystem.IsWindows())
+{
+    hostBuilder.UseWindowsService();
+}
+if (System.OperatingSystem.IsLinux())
+{
+    hostBuilder.UseSystemd();
+}
 
+
+IHost host =
+    hostBuilder.Build();
 host.Run();
