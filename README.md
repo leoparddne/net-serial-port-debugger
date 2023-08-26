@@ -7,11 +7,12 @@
 程序主体使用.net6实现  
 基础结构划分情况如下  
 SerialPortProxyService.Common - 核心、公共逻辑
-SerialPortProxyService.Console - 命令行模式逻辑
 SerialPortProxyService.Win - GUI模式逻辑，基于WPF+handycontrol
 SerialPortProxyService - 服务模式逻辑
 SerialPortProxyService.Test - 测试代码,用作部分单元测试不便于测试的场景
 SerialPortProxyService.MSTest - 单元测试,基于MSTest框架
+SerialPortProxyService.Console - 部分测试代码,命令行模式逻辑
+
 
 #### 安装教程
 
@@ -47,6 +48,48 @@ SerialPortProxyService.MSTest - 单元测试,基于MSTest框架
 后续所有串口消息均会通过网络进行转发，此过程是双向转发。  
 
 
+### 命令行模式下配置文件说明
+配置文件保存在appsettings.json中  
+示例如下
+```
+{
+  "Mode": "Server",
+  "Net": {
+    "IP": "127.0.0.1",
+    "Port": 5000
+  },
+  "Serial": {
+    "PortName": "COM1",
+    "BaudRate": 9600,
+    "Parity": "Odd",
+    "DataBits": 8,
+    "StopBits": "One"
+  }
+}
+```
+
+参数说明  
+参数| 说明
+-|-
+Mode|Server:服务模式,  Client:客户端模式
+
+net下参数
+参数| 说明
+-|-
+IP|服务端运行ip,如果当前为服务模式将绑定网卡中的所有ip而不是使用此配置
+Port|服务端运行端口
+
+
+serial下参数
+参数| 说明
+-|-
+PortName|串口名称
+BaudRate|波特率
+Parity|校验位: None,Odd,Even,Mark,Space
+DataBits|数据位,取值范围0-8
+StopBits|停止位: None,One,Two,OnePointFive
+
+
 
 #### 参与贡献
 
@@ -54,13 +97,3 @@ SerialPortProxyService.MSTest - 单元测试,基于MSTest框架
 2.  新建 Feat_xxx 分支
 3.  提交代码
 4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)

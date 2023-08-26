@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPortProxyService.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPortProxyService.Common", "SerialPortProxyService.Common\SerialPortProxyService.Common.csproj", "{A4732D29-A85F-4ECE-A479-C98716F2C74E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortProxyService.Console", "SerialPortProxyService.Console\SerialPortProxyService.Console.csproj", "{E59E77EF-191C-46CB-AFE7-EA3CA4C2EB76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPortProxyService.Console", "SerialPortProxyService.Console\SerialPortProxyService.Console.csproj", "{E59E77EF-191C-46CB-AFE7-EA3CA4C2EB76}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F3A8EFA7-C840-4F14-944F-19AF9CADD7AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortProxyService.MSTest", "SerialPortProxyService.MSTest\SerialPortProxyService.MSTest.csproj", "{E1B98930-B524-4FBA-8A82-F86E7F647AF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPortProxyService.MSTest", "SerialPortProxyService.MSTest\SerialPortProxyService.MSTest.csproj", "{E1B98930-B524-4FBA-8A82-F86E7F647AF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +53,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F53AC408-8573-40B8-9C93-ECEA84F76827} = {F3A8EFA7-C840-4F14-944F-19AF9CADD7AA}
+		{E59E77EF-191C-46CB-AFE7-EA3CA4C2EB76} = {F3A8EFA7-C840-4F14-944F-19AF9CADD7AA}
 		{E1B98930-B524-4FBA-8A82-F86E7F647AF9} = {F3A8EFA7-C840-4F14-944F-19AF9CADD7AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
